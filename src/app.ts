@@ -5,6 +5,7 @@ import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./docs/swagger";
 import { healthRouter } from "./routes/health";
+import { profileRouter } from "./routes/profile";
 
 export const app = express();
 
@@ -28,6 +29,7 @@ app.get("/", (_req, res) => {
   });
 });
 app.use(healthRouter);
+app.use(profileRouter);
 
 app.use(
   "/docs",
