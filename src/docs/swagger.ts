@@ -1,6 +1,12 @@
 import swaggerJSDoc from "swagger-jsdoc";
+import path from "path";
 
 const appUrl = process.env.APP_URL || "http://localhost:3000";
+
+const apis =
+  process.env.NODE_ENV === "production"
+    ? [path.resolve(process.cwd(), "dist/routes/*.js")]
+    : [path.resolve(process.cwd(), "src/routes/*.ts")];
 
 export const swaggerSpec = swaggerJSDoc({
   definition: {
@@ -21,11 +27,7 @@ export const swaggerSpec = swaggerJSDoc({
     ],
     components: {
       securitySchemes: {
-        bearerAuth: {
-          type: "http",
-          scheme: "bearer",
-          bearerFormat: "JWT",
-        },
+        bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
       },
       schemas: {
         ApiResponse: {
@@ -40,5 +42,5 @@ export const swaggerSpec = swaggerJSDoc({
       },
     },
   },
-  apis: ["src/routes/*.ts"],
+  apis,
 });
