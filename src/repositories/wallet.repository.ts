@@ -46,3 +46,20 @@ export async function addBalance(
   );
   return data.rows[0].balance;
 }
+
+export async function deductBalance(
+  client: PoolClient,
+  userId: number,
+  amount: number
+) {
+  const data = await client.query<{ balance: string | number }>(
+    `UPDATE wallets
+    SET balance = balance - $2,
+    updated_at = now()
+    WHERE user_id = $1
+    RETURNING balance`,
+    [userId, amount]
+  );
+
+  return data.rows[0].balance;
+}

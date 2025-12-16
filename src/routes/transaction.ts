@@ -2,6 +2,7 @@ import { Router } from "express";
 import { authJwt } from "../middlewares/authJwt";
 import { balanceUser } from "../controllers/balance.controller";
 import { topup } from "../controllers/topup.controller";
+import { transaction } from "../controllers/payment.controller";
 
 export const transactionRouter = Router();
 
@@ -95,3 +96,64 @@ transactionRouter.get("/balance", authJwt, balanceUser);
  *                 data: { nullable: true, example: null }
  */
 transactionRouter.post("/topup", authJwt, topup);
+
+/**
+ * @openapi
+ * /transaction:
+ *   post:
+ *     tags: [3. Module Transaction]
+ *     summary: API Transaction Private
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [service_code]
+ *             properties:
+ *               service_code:
+ *                 type: string
+ *                 example: PULSA
+ *     responses:
+ *       200:
+ *         description: Transaksi Berhasil
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: { type: integer, example: 0 }
+ *                 message: { type: string, example: Transaksi berhasil }
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     invoice_number: { type: string, example: INV17082023-001 }
+ *                     service_code: { type: string, example: PLN_PRABAYAR }
+ *                     service_name: { type: string, example: PLN Prabayar }
+ *                     transaction_type: { type: string, example: PAYMENT }
+ *                     total_amount: { type: integer, example: 10000 }
+ *                     created_on: { type: string, example: 2023-08-17T10:10:10.000Z }
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: { type: integer, example: 102 }
+ *                 message: { type: string, example: Service atau Layanan tidak ditemukan }
+ *                 data: { nullable: true, example: null }
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: { type: integer, example: 108 }
+ *                 message: { type: string, example: Token tidak tidak valid atau kadaluwarsa }
+ *                 data: { nullable: true, example: null }
+ */
+transactionRouter.post("/transaction", authJwt, transaction);
