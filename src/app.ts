@@ -7,6 +7,7 @@ import { swaggerSpec } from "./docs/swagger";
 import { healthRouter } from "./routes/health";
 import { profileRouter } from "./routes/profile";
 import { dbRouter } from "./routes/db";
+import { membershipRouter } from "./routes/membership";
 
 export const app = express();
 
@@ -14,7 +15,10 @@ app.set("trust proxy", 1);
 
 // middlewares
 app.use(helmet());
-app.use(cors());
+
+app.use(cors({ origin: "*", credentials: false }));
+app.options(/.*/, cors({ origin: "*", credentials: false }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
@@ -32,6 +36,7 @@ app.get("/", (_req, res) => {
 app.use(healthRouter);
 app.use(dbRouter);
 app.use(profileRouter);
+app.use(membershipRouter);
 
 app.use(
   "/docs",

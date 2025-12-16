@@ -15,7 +15,7 @@ services:
     image: postgres:15
     container_name: test-programmer-backend-postgres
     environment:
-      POSTGRES_DB: test_programmer
+      POSTGRES_DB: test_backend_programmer
       POSTGRES_USER: naufalpujimahdy
       POSTGRES_PASSWORD: password
     volumes:
