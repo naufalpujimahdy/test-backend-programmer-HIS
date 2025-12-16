@@ -8,6 +8,10 @@ import { healthRouter } from "./routes/health";
 import { profileRouter } from "./routes/profile";
 import { dbRouter } from "./routes/db";
 import { membershipRouter } from "./routes/membership";
+import { bannerRouter } from "./routes/banners";
+import { serviceRouter } from "./routes/service";
+import { transactionRouter } from "./routes/transaction";
+import path from "path";
 
 export const app = express();
 
@@ -53,12 +57,17 @@ app.get("/", (_req, res) => {
   });
 });
 
+// Uploads
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
 // routes
 app.use(healthRouter);
 app.use(dbRouter);
 app.use(profileRouter);
 app.use(membershipRouter);
-
+app.use(bannerRouter);
+app.use(serviceRouter);
+app.use(transactionRouter);
 // swagger
 app.use(
   "/docs",

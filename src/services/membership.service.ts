@@ -5,9 +5,12 @@ import {
   findUserIdByEmail,
   findUserProfileByEmail,
   insertUser,
+  updateProfileImageUser,
   updateUserByEmail,
 } from "../repositories/user.repositories";
 import { signToken } from "../utils/jwt";
+import { createWallet } from "../repositories/wallet.repository";
+import { withTx } from "../db/ts";
 
 export type ServiceResult<T> =
   | { ok: true; data: T }
@@ -75,11 +78,14 @@ export async function registerUser(input: {
 
   const passwordHash = await bcrypt.hash(password, 10);
 
-  await insertUser({
-    email,
-    firstName,
-    lastName,
-    passwordHash,
+  await withTx(async (client) => {
+    const userId = await insertUser(client, {
+      email,
+      firstName,
+      lastName,
+      passwordHash,
+    });
+    await createWallet(client, userId);
   });
 
   return { ok: true, data: null };
@@ -225,5 +231,62 @@ export async function updateProfileName(
       message: "Token tidak valid atau kadaluarsa",
     };
   }
+  return { ok: true, data: updated };
+}
+
+export async function updateProfileImageByEmail(
+  userEmail: string | undefined,
+  file: Express.Multer.File | undefined,
+  publicUrl: string
+): Promise<
+  ServiceResult<{
+    email: string;
+    first_name: string;
+    last_name: string;
+    profile_image: string | null;
+  }>
+> {
+  if (!userEmail) {
+    return {
+      ok: false,
+      httpStatus: 401,
+      status: 108,
+      message: "Token tidak valid atau kadaluarsa",
+    };
+  }
+
+  if (!file) {
+    return {
+      ok: false,
+      httpStatus: 400,
+      status: 102,
+      message: "Format Image tidak sesuai",
+    };
+  }
+
+  const extensetionAllowed = ["image/jpeg", "image/png"];
+  if (!extensetionAllowed) {
+    return {
+      ok: false,
+      httpStatus: 400,
+      status: 102,
+      message: "Format Image tidak sesuai",
+    };
+  }
+
+  const updated = await updateProfileImageUser({
+    email: userEmail,
+    profileImageUrl: publicUrl,
+  });
+
+  if (!updated) {
+    return {
+      ok: false,
+      httpStatus: 401,
+      status: 108,
+      message: "Token tidak valid atau kadaluarsa",
+    };
+  }
+
   return { ok: true, data: updated };
 }

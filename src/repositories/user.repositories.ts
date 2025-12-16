@@ -1,4 +1,4 @@
-import { QueryResultRow } from "pg";
+import { PoolClient, QueryResultRow } from "pg";
 import { query } from "../db/pool";
 
 export type UserRow = {
@@ -18,24 +18,30 @@ export type UserProfileRow = {
 };
 
 export async function findUserIdByEmail(email: string): Promise<number | null> {
-  const r = await query<{ id: number }>(
+  const data = await query<{ id: number }>(
     "SELECT id FROM users WHERE email = $1 LIMIT 1",
     [email]
   );
-  return r.rowCount ? r.rows[0].id : null;
+  return data.rowCount ? data.rows[0].id : null;
 }
 
-export async function insertUser(params: {
-  email: string;
-  firstName: string;
-  lastName: string;
-  passwordHash: string;
-}): Promise<void> {
-  await query<QueryResultRow>(
+export async function insertUser(
+  client: PoolClient,
+  params: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    passwordHash: string;
+  }
+): Promise<number> {
+  const data = await client.query<QueryResultRow>(
     `INSERT INTO users (email, first_name, last_name, password_hash)
-     VALUES ($1, $2, $3, $4)`,
+     VALUES ($1, $2, $3, $4)
+     RETURNING id`,
     [params.email, params.firstName, params.lastName, params.passwordHash]
   );
+
+  return data.rows[0].id;
 }
 
 export async function findUserByEmail(email: string): Promise<UserRow | null> {
@@ -78,5 +84,20 @@ export async function updateUserByEmail(params: {
     [params.email, params.firstName, params.lastName]
   );
 
+  return data.rowCount ? data.rows[0] : null;
+}
+
+export async function updateProfileImageUser(params: {
+  email: string;
+  profileImageUrl: string;
+}): Promise<UserProfileRow | null> {
+  const data = await query<UserProfileRow>(
+    `UPDATE users
+    SET profile_image = $2,
+    updated_at = NOW()
+    WHERE email = $1
+    RETURNING email, first_name, last_name, profile_image`,
+    [params.email, params.profileImageUrl]
+  );
   return data.rowCount ? data.rows[0] : null;
 }
