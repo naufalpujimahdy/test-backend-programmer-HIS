@@ -3,7 +3,9 @@ import validator from "validator";
 import {
   findUserByEmail,
   findUserIdByEmail,
+  findUserProfileByEmail,
   insertUser,
+  updateUserByEmail,
 } from "../repositories/user.repositories";
 import { signToken } from "../utils/jwt";
 
@@ -131,4 +133,97 @@ export async function loginUser(input: {
 
   const token = signToken(user.email);
   return { ok: true, data: { token } };
+}
+
+export async function getProfile(userEmail?: string): Promise<
+  ServiceResult<{
+    email: string;
+    first_name: string;
+    last_name: string;
+    profile_image: string | null;
+  }>
+> {
+  if (!userEmail) {
+    return {
+      ok: false,
+      httpStatus: 401,
+      status: 108,
+      message: "Token tidak tidak valid atau kadaluwarsa",
+    };
+  }
+
+  const profile = await findUserProfileByEmail(userEmail);
+  if (!profile) {
+    return {
+      ok: false,
+      httpStatus: 401,
+      status: 108,
+      message: "Token tidak tidak valid atau kadaluwarsa",
+    };
+  }
+
+  return { ok: true, data: profile };
+}
+
+export async function updateProfileName(
+  userEmail: string | undefined,
+  body: {
+    first_name?: unknown;
+    last_name?: unknown;
+  }
+): Promise<
+  ServiceResult<{
+    email: string;
+    first_name: string;
+    last_name: string;
+    profile_image: string | null;
+  }>
+> {
+  if (!userEmail) {
+    return {
+      ok: false,
+      httpStatus: 401,
+      status: 108,
+      message: "Token tidak valid atau kadaluarsa",
+    };
+  }
+
+  const firstName =
+    typeof body.first_name === "string" ? body.first_name.trim() : "";
+  const lastName =
+    typeof body.last_name === "string" ? body.last_name.trim() : "";
+
+  if (!firstName) {
+    return {
+      ok: false,
+      httpStatus: 400,
+      status: 102,
+      message: "Parameter first_name tidak valid",
+    };
+  }
+
+  if (!lastName) {
+    return {
+      ok: false,
+      httpStatus: 400,
+      status: 102,
+      message: "Parameter last_name tidak valid",
+    };
+  }
+
+  const updated = await updateUserByEmail({
+    email: userEmail,
+    firstName,
+    lastName,
+  });
+
+  if (!updated) {
+    return {
+      ok: false,
+      httpStatus: 401,
+      status: 108,
+      message: "Token tidak valid atau kadaluarsa",
+    };
+  }
+  return { ok: true, data: updated };
 }

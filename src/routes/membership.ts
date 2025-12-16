@@ -1,5 +1,11 @@
 import { Router } from "express";
-import { login, registration } from "../controllers/membership.controller";
+import {
+  login,
+  profile,
+  registration,
+  updateProfile,
+} from "../controllers/membership.controller";
+import { authJwt } from "../middlewares/authJwt";
 
 export const membershipRouter = Router();
 
@@ -121,3 +127,115 @@ membershipRouter.post("/registration", registration);
  *                 data: { nullable: true, example: null }
  */
 membershipRouter.post("/login", login);
+
+/**
+ * @openapi
+ * /profile:
+ *   get:
+ *     tags: [1. Module Membership]
+ *     summary: API Profile Private
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Request Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 0
+ *                 message:
+ *                   type: string
+ *                   example: Sukses
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     email:
+ *                       type: string
+ *                       example: user@nutech-integrasi.com
+ *                     first_name:
+ *                       type: string
+ *                       example: User
+ *                     last_name:
+ *                       type: string
+ *                       example: Nutech
+ *                     profile_image:
+ *                       type: string
+ *                       nullable: true
+ *                       example: https://yoururlapi.com/profile.jpeg
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: integer
+ *                   example: 108
+ *                 message:
+ *                   type: string
+ *                   example: Token tidak tidak valid atau kadaluwarsa
+ *                 data:
+ *                   nullable: true
+ *                   example: null
+ */
+membershipRouter.get("/profile", authJwt, profile);
+
+/**
+ * @openapi
+ * /profile/update:
+ *   put:
+ *     tags: [1. Module Membership]
+ *     summary: API Update Profile Private
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [first_name, last_name]
+ *             properties:
+ *               first_name:
+ *                 type: string
+ *                 example: User Edited
+ *               last_name:
+ *                 type: string
+ *                 example: Nutech Edited
+ *     responses:
+ *       200:
+ *         description: Request Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: { type: integer, example: 0 }
+ *                 message: { type: string, example: Update Pofile berhasil }
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     email: { type: string, example: user@nutech-integrasi.com }
+ *                     first_name: { type: string, example: User Edited }
+ *                     last_name: { type: string, example: Nutech Edited }
+ *                     profile_image:
+ *                       type: string
+ *                       nullable: true
+ *                       example: https://yoururlapi.com/profile.jpeg
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: { type: integer, example: 108 }
+ *                 message: { type: string, example: Token tidak tidak valid atau kadaluwarsa }
+ *                 data: { nullable: true, example: null }
+ */
+membershipRouter.put("/profile/update", authJwt, updateProfile);
