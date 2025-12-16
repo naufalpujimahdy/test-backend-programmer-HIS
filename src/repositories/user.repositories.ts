@@ -18,11 +18,11 @@ export type UserProfileRow = {
 };
 
 export async function findUserIdByEmail(email: string): Promise<number | null> {
-  const r = await query<{ id: number }>(
+  const data = await query<{ id: number }>(
     "SELECT id FROM users WHERE email = $1 LIMIT 1",
     [email]
   );
-  return r.rowCount ? r.rows[0].id : null;
+  return data.rowCount ? data.rows[0].id : null;
 }
 
 export async function insertUser(params: {

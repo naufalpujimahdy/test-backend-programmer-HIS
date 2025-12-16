@@ -25,6 +25,17 @@ export const swaggerSpec = swaggerJSDoc({
             : "Local Development Server",
       },
     ],
+    tags: [
+      {
+        name: "1. Module Membership",
+        description: "Registration, Login, Profile",
+      },
+      { name: "2. Module Information", description: "Banner & Services" },
+      {
+        name: "3. Module Transaction",
+        description: "Balance, Topup, Transaction, History",
+      },
+    ],
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
