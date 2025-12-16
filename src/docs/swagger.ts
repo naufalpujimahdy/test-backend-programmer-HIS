@@ -6,9 +6,9 @@ export const swaggerSpec = swaggerJSDoc({
     info: {
       title: "Test Backend Programmer HIS - Naufal Puji Mahdy",
       version: "1.0.0",
-      description: "Express JS",
+      description: "Documentation for Take Home Test API",
     },
-    servers: [{ url: "http://localhost:3000" }],
+    servers: [{ url: "http://localhost:8080" }],
     components: {
       securitySchemes: {
         bearerAuth: {
