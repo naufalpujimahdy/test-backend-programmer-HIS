@@ -80,3 +80,18 @@ export async function updateUserByEmail(params: {
 
   return data.rowCount ? data.rows[0] : null;
 }
+
+export async function updateProfileImageUser(params: {
+  email: string;
+  profileImageUrl: string;
+}): Promise<UserProfileRow | null> {
+  const data = await query<UserProfileRow>(
+    `UPDATE users
+    SET profile_image = $2,
+    updated_at = NOW()
+    WHERE email = $1
+    RETURNING email, first_name, last_name, profile_image`,
+    [params.email, params.profileImageUrl]
+  );
+  return data.rowCount ? data.rows[0] : null;
+}

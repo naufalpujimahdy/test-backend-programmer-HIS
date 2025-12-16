@@ -4,8 +4,10 @@ import {
   profile,
   registration,
   updateProfile,
+  updateProfileImage,
 } from "../controllers/membership.controller";
 import { authJwt } from "../middlewares/authJwt";
+import { uploadProfileImage } from "../middlewares/uploadProfileImage";
 
 export const membershipRouter = Router();
 
@@ -239,3 +241,67 @@ membershipRouter.get("/profile", authJwt, profile);
  *                 data: { nullable: true, example: null }
  */
 membershipRouter.put("/profile/update", authJwt, updateProfile);
+
+/**
+ * @openapi
+ * /profile/image:
+ *   put:
+ *     tags: [1. Module Membership]
+ *     summary: API Upload Profile Image Private
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required: [file]
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Request Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: { type: integer, example: 0 }
+ *                 message: { type: string, example: Update Profile Image berhasil }
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     email: { type: string, example: user@nutech-integrasi.com }
+ *                     first_name: { type: string, example: User Edited }
+ *                     last_name: { type: string, example: Nutech Edited }
+ *                     profile_image: { type: string, example: https://yoururlapi.com/profile-updated.jpeg }
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: { type: integer, example: 102 }
+ *                 message: { type: string, example: Format Image tidak sesuai }
+ *                 data: { nullable: true, example: null }
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: { type: integer, example: 108 }
+ *                 message: { type: string, example: Token tidak tidak valid atau kadaluwarsa }
+ *                 data: { nullable: true, example: null }
+ */
+membershipRouter.put(
+  "/profile/image",
+  authJwt,
+  uploadProfileImage.single("file"),
+  updateProfileImage
+);

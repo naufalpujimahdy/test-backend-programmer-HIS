@@ -8,6 +8,7 @@ import { healthRouter } from "./routes/health";
 import { profileRouter } from "./routes/profile";
 import { dbRouter } from "./routes/db";
 import { membershipRouter } from "./routes/membership";
+import path from "path";
 
 export const app = express();
 
@@ -52,6 +53,9 @@ app.get("/", (_req, res) => {
     data: { docs: "/docs", health: "/health" },
   });
 });
+
+// Uploads
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 // routes
 app.use(healthRouter);
