@@ -8,6 +8,7 @@ import { healthRouter } from "./routes/health";
 import { profileRouter } from "./routes/profile";
 import { dbRouter } from "./routes/db";
 import { membershipRouter } from "./routes/membership";
+import { bannerRouter } from "./routes/banners";
 import path from "path";
 
 export const app = express();
@@ -62,6 +63,7 @@ app.use(healthRouter);
 app.use(dbRouter);
 app.use(profileRouter);
 app.use(membershipRouter);
+app.use(bannerRouter);
 
 // swagger
 app.use(
