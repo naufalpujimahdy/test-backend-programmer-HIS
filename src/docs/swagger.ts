@@ -1,5 +1,7 @@
 import swaggerJSDoc from "swagger-jsdoc";
 
+const appUrl = process.env.APP_URL || "http://localhost:3000";
+
 export const swaggerSpec = swaggerJSDoc({
   definition: {
     openapi: "3.0.3",
@@ -8,7 +10,15 @@ export const swaggerSpec = swaggerJSDoc({
       version: "1.0.0",
       description: "Documentation for Take Home Test API",
     },
-    servers: [{ url: "http://localhost:8080" }],
+    servers: [
+      {
+        url: appUrl,
+        description:
+          process.env.NODE_ENV === "production"
+            ? "Production Server"
+            : "Local Development Server",
+      },
+    ],
     components: {
       securitySchemes: {
         bearerAuth: {
