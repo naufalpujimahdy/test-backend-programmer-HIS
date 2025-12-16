@@ -40,7 +40,7 @@ app.use(
 );
 
 // preflight
-app.options("*", cors());
+app.options(/.*/, cors());
 
 // logger
 app.use(morgan("dev"));
