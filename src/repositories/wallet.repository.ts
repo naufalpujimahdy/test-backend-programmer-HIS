@@ -22,3 +22,27 @@ export async function findBalanceByUserId(
 
   return data.rowCount ? data.rows[0].balance : null;
 }
+
+export async function lockWalletByUserId(client: PoolClient, userId: number) {
+  const data = await client.query<{ balance: string | number }>(
+    `SELECT balance FROM wallets WHERE user_id = $1 FOR UPDATE`,
+    [userId]
+  );
+  return data.rowCount ? data.rows[0].balance : null;
+}
+
+export async function addBalance(
+  client: PoolClient,
+  userId: number,
+  amount: number
+) {
+  const data = await client.query<{ balance: string | number }>(
+    `UPDATE wallets
+        SET balance = balance + $2,
+        updated_at = NOW()
+        WHERE user_id = $1
+        RETURNING balance`,
+    [userId, amount]
+  );
+  return data.rows[0].balance;
+}
