@@ -4,7 +4,7 @@ function toBool(v: string | undefined): boolean {
   return v === "true" || v === "1";
 }
 
-const pool = new Pool({
+export const pool = new Pool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 5432,
   database: process.env.DB_NAME,

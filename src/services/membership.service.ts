@@ -9,6 +9,8 @@ import {
   updateUserByEmail,
 } from "../repositories/user.repositories";
 import { signToken } from "../utils/jwt";
+import { createWallet } from "../repositories/wallet.repository";
+import { withTx } from "../db/ts";
 
 export type ServiceResult<T> =
   | { ok: true; data: T }
@@ -76,11 +78,14 @@ export async function registerUser(input: {
 
   const passwordHash = await bcrypt.hash(password, 10);
 
-  await insertUser({
-    email,
-    firstName,
-    lastName,
-    passwordHash,
+  await withTx(async (client) => {
+    const userId = await insertUser(client, {
+      email,
+      firstName,
+      lastName,
+      passwordHash,
+    });
+    await createWallet(client, userId);
   });
 
   return { ok: true, data: null };
