@@ -1,4 +1,3 @@
-import { QueryResultRow } from "pg";
 import { query } from "../db/pool";
 
 export type BannerRow = {
