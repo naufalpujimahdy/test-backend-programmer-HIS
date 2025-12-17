@@ -1,6 +1,6 @@
 import { withTx } from "../db/ts";
-import { insertTopupTransaction } from "../repositories/transaction.repositories";
-import { findUserIdByEmail } from "../repositories/user.repositories";
+import { insertTopupTransaction } from "../repositories/transaction.repository";
+import { findUserIdByEmail } from "../repositories/user.repository";
 import {
   addBalance,
   lockWalletByUserId,

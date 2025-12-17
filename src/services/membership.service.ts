@@ -7,7 +7,7 @@ import {
   insertUser,
   updateProfileImageUser,
   updateUserByEmail,
-} from "../repositories/user.repositories";
+} from "../repositories/user.repository";
 import { signToken } from "../utils/jwt";
 import { createWallet } from "../repositories/wallet.repository";
 import { withTx } from "../db/ts";

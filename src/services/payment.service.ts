@@ -1,7 +1,7 @@
 import { withTx } from "../db/ts";
-import { findServiceByCode } from "../repositories/service.repositories";
-import { insertPaymentTransaction } from "../repositories/transaction.repositories";
-import { findUserIdByEmail } from "../repositories/user.repositories";
+import { findServiceByCode } from "../repositories/service.repository";
+import { insertPaymentTransaction } from "../repositories/transaction.repository";
+import { findUserIdByEmail } from "../repositories/user.repository";
 import {
   deductBalance,
   lockWalletByUserId,

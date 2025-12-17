@@ -1,4 +1,4 @@
-import { allService } from "../repositories/service.repositories";
+import { allService } from "../repositories/service.repository";
 
 export type ServiceResult<T> =
   | { ok: true; data: T }

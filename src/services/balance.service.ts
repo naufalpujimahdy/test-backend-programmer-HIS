@@ -1,4 +1,4 @@
-import { findUserIdByEmail } from "../repositories/user.repositories";
+import { findUserIdByEmail } from "../repositories/user.repository";
 import { findBalanceByUserId } from "../repositories/wallet.repository";
 
 export type ServiceResult<T> =
