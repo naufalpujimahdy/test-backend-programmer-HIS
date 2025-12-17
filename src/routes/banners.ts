@@ -8,7 +8,6 @@ export const bannerRouter = Router();
  * /banner:
  *   get:
  *     tags: [2. Module Information]
- *     summary: API Banner Public
  *     description: Digunakan untuk mendapatkan list banner
  *     responses:
  *       200:
@@ -26,7 +25,7 @@ export const bannerRouter = Router();
  *                     type: object
  *                     properties:
  *                       banner_name: { type: string, example: Banner 1 }
- *                       banner_image: { type: string, example: https://nutech-integrasi.app/dummy.jpg }
+ *                       banner_image: { type: string, example: https://naufalpujimahdy.id/dummy.jpg }
  *                       description: { type: string, example: Lerem Ipsum Dolor sit amet }
  */
 bannerRouter.get("/banner", list);
