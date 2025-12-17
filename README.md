@@ -76,6 +76,37 @@ Desain database menggunakan **PostgreSQL** dengan tabel utama:
 
 ## Database ERD
 
-Berikut adalah **Entity Relationship Diagram (ERD)** yang menggambarkan relasi antar tabel pada database:
+```mermaid
+erDiagram
+    USERS ||--|| WALLETS : has
+    USERS ||--o{ TRANSACTIONS : performs
+    SERVICES ||--o{ TRANSACTIONS : used_in
+    USERS ||--o{ BANNERS : views
 
-![Database ERD](docs/erd-database.png)
+    USERS {
+        uuid id PK
+        string email
+        string password
+    }
+
+    WALLETS {
+        uuid id PK
+        uuid user_id FK
+        decimal balance
+    }
+
+    SERVICES {
+        uuid id PK
+        string service_code
+        string service_name
+        decimal price
+    }
+
+    TRANSACTIONS {
+        uuid id PK
+        uuid user_id FK
+        uuid service_id FK
+        decimal amount
+        string transaction_type
+    }
+```
