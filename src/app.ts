@@ -49,7 +49,12 @@ app.options(/.*/, cors());
 // logger
 app.use(morgan("dev"));
 
-app.get("/", (_req, res) => {
+app.get("/", (req, res) => {
+  const accept = req.headers.accept || "";
+  const isBrowser = accept.includes("text/html");
+  if (isBrowser) {
+    return res.redirect(302, "/docs");
+  }
   res.status(200).json({
     status: 0,
     message: "Test Programmer Backend is Running",
