@@ -3,6 +3,7 @@ import { authJwt } from "../middlewares/authJwt";
 import { balanceUser } from "../controllers/balance.controller";
 import { topup } from "../controllers/topup.controller";
 import { transaction } from "../controllers/payment.controller";
+import { history } from "../controllers/history.controller";
 
 export const transactionRouter = Router();
 
@@ -157,3 +158,58 @@ transactionRouter.post("/topup", authJwt, topup);
  *                 data: { nullable: true, example: null }
  */
 transactionRouter.post("/transaction", authJwt, transaction);
+
+/**
+ * @openapi
+ * /transaction/history:
+ *   get:
+ *     tags: [3. Module Transaction]
+ *     summary: API History Private
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: offset
+ *         schema: { type: integer, example: 0 }
+ *         required: false
+ *       - in: query
+ *         name: limit
+ *         schema: { type: integer, example: 3 }
+ *         required: false
+ *     responses:
+ *       200:
+ *         description: Get History Transaksi berhasil
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: { type: integer, example: 0 }
+ *                 message: { type: string, example: Get History Berhasil }
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     offset: { type: integer, example: 0 }
+ *                     limit: { type: integer, nullable: true, example: 3 }
+ *                     records:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           invoice_number: { type: string, example: INV17082023-001 }
+ *                           transaction_type: { type: string, example: TOPUP }
+ *                           description: { type: string, example: Top Up balance }
+ *                           total_amount: { type: integer, example: 100000 }
+ *                           created_on: { type: string, example: 2023-08-17T10:10:10.000Z }
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: { type: integer, example: 108 }
+ *                 message: { type: string, example: Token tidak tidak valid atau kadaluwarsa }
+ *                 data: { nullable: true, example: null }
+ */
+transactionRouter.get("/transaction/history", authJwt, history);
