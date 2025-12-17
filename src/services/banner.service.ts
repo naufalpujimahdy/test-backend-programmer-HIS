@@ -1,4 +1,4 @@
-import { allBanner } from "../repositories/banner.repositories";
+import { allBanner } from "../repositories/banner.repository";
 
 export type ServiceResult<T> =
   | { ok: true; data: T }
