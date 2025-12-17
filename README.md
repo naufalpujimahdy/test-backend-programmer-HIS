@@ -1,81 +1,81 @@
 # Test Backend Programmer HIS
 
-Take Home Test Backend Programmer  
-PT Nutech Integrasi  
+**Take Home Test Backend Programmer**
+PT Nutech Integrasi
 Author: **Naufal Puji Mahdy**
 
 ---
 
-## 📌 Deskripsi
+## Deskripsi Project
 
-Project ini merupakan implementasi **Take Home Test Backend Programmer HIS** menggunakan **Node.js (Express.js 5)** dan **PostgreSQL**, dengan mengikuti **kontrak API sesuai Swagger** yang diberikan oleh PT Nutech Integrasi.
-
-Fokus utama:
-
-- Authentication & Authorization (JWT)
-- Transaction integrity (saldo, top up, payment)
-- Clean architecture (Controller – Service – Repository)
-- Raw SQL query (prepared statement)
-- Production-ready backend
+- Authentication & Authorization menggunakan **JWT**
+- Manajemen saldo
+- Transaction history
+- Validasi
+- Pemisahan layer Controller – Service – Repository
+- Dokumentasi API menggunakan Swagger
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Node.js**
-- **Express.js v5**
+- **Express.js**
 - **TypeScript**
 - **PostgreSQL**
-- **JWT (Authentication)**
-- **Swagger (OpenAPI 3.0)**
-- **Docker (Production ready)**
+- **JWT**
+- **Swagger / OpenAPI 3.0**
+- **Docker & Docker Compose**
 
 ---
 
-## 📂 Struktur Project
-
-.
-├── src/
-│ ├── app.ts
-│ ├── server.ts
-│ ├── routes/
-│ ├── controllers/
-│ ├── services/
-│ ├── repositories/
-│ ├── middlewares/
-│ ├── db/
-│ └── docs/
-├── database/
-│ ├── schema.sql
-│ └── seed.sql
-├── .env.example
-├── .gitignore
-├── package.json
-├── tsconfig.json
-└── README.md
-
----
-
-## 🗄️ Database Design (DDL)
-
-Database schema tersedia pada file berikut:
-
-Berisi:
-
-- users
-- wallets (saldo user)
-- banners
-- services
-- transactions
-
-Relasi dan constraint dibuat untuk memastikan:
-
-- Integrity saldo
-- Atomic transaction
-- Data consistency
-
-### Menjalankan DDL
+## Struktur Folder Project
 
 ```bash
-psql -d test_backend_programmer -f database/schema.sql
+.
+├── dist/
+├── node_modules/
+├── src/
+│   ├── controllers/
+│   ├── db/
+│   ├── docs/
+│   ├── middlewares/
+│   ├── repositories/
+│   ├── routes/
+│   ├── services/
+│   ├── types/
+│   ├── utils/
+│   ├── app.ts
+│   └── server.ts
+├── uploads/
+├── .dockerignore
+├── .env
+├── .env.example
+├── .gitignore
+├── docker-compose.yml
+├── Dockerfile
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+└── README.md
 ```
+
+---
+
+## Database Design (DDL)
+
+Desain database menggunakan **PostgreSQL** dengan tabel utama:
+
+- **users** — data user
+- **wallets** — saldo user
+- **services** — layanan yang tersedia
+- **transactions** — riwayat transaksi
+- **banners** — banner informasi
+
+---
+
+## Database ERD
+
+Berikut adalah **Entity Relationship Diagram (ERD)** yang menggambarkan relasi antar tabel pada database:
+
+![Database ERD](docs/erd-database.png)
