@@ -67,7 +67,7 @@ export const membershipRouter = Router();
  *                   example: 102
  *                 message:
  *                   type: string
- *                   example: Paramter email tidak sesuai format
+ *                   example: Parameter email tidak sesuai format
  *                 data:
  *                   nullable: true
  *                   example: null
@@ -113,7 +113,7 @@ membershipRouter.post("/registration", registration);
  *               type: object
  *               properties:
  *                 status: { type: integer, example: 102 }
- *                 message: { type: string, example: Paramter email tidak sesuai format }
+ *                 message: { type: string, example: Parameter email tidak sesuai format }
  *                 data: { nullable: true, example: null }
  *       401:
  *         description: Unauthorized
@@ -164,7 +164,7 @@ membershipRouter.post("/login", login);
  *                     profile_image:
  *                       type: string
  *                       nullable: true
- *                       example: https://yoururlapi.com/profile.jpeg
+ *                       example: https://naufalpujimahdy.id/profile.jpeg
  *       401:
  *         description: Unauthorized
  *         content:
@@ -224,7 +224,7 @@ membershipRouter.get("/profile", authJwt, profile);
  *                     profile_image:
  *                       type: string
  *                       nullable: true
- *                       example: https://yoururlapi.com/profile.jpeg
+ *                       example: https://naufalpujimahdy.id/profile.jpeg
  *       401:
  *         description: Unauthorized
  *         content:
@@ -272,7 +272,7 @@ membershipRouter.put("/profile/update", authJwt, updateProfile);
  *                     email: { type: string, example: naufal@mail.com }
  *                     first_name: { type: string, example: Naufal Edited }
  *                     last_name: { type: string, example: Puji Mahdy Edited }
- *                     profile_image: { type: string, example: https://yoururlapi.com/profile-updated.jpeg }
+ *                     profile_image: { type: string, example: https://naufalpujimahdy.id/profile-updated.jpeg }
  *       400:
  *         description: Bad Request
  *         content:

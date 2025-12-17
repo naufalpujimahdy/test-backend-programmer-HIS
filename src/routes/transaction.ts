@@ -81,7 +81,7 @@ transactionRouter.get("/balance", authJwt, balanceUser);
  *               type: object
  *               properties:
  *                 status: { type: integer, example: 102 }
- *                 message: { type: string, example: Paramter amount hanya boleh angka dan tidak boleh lebih kecil dari 0 }
+ *                 message: { type: string, example: Parameter amount hanya boleh angka dan tidak boleh lebih kecil dari 0 }
  *                 data: { nullable: true, example: null }
  *       401:
  *         description: Unauthorized
