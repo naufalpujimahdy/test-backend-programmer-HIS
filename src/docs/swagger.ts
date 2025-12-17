@@ -28,28 +28,15 @@ export const swaggerSpec = swaggerJSDoc({
     tags: [
       {
         name: "1. Module Membership",
-        description: "Registration, Login, Profile",
       },
-      { name: "2. Module Information", description: "Banner & Services" },
+      { name: "2. Module Information" },
       {
         name: "3. Module Transaction",
-        description: "Balance, Topup, Transaction, History",
       },
     ],
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
-      },
-      schemas: {
-        ApiResponse: {
-          type: "object",
-          properties: {
-            status: { type: "integer", example: 0 },
-            message: { type: "string", example: "Sukses" },
-            data: { nullable: true },
-          },
-          required: ["status", "message", "data"],
-        },
       },
     },
   },

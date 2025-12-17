@@ -9,7 +9,6 @@ export const serviceRouter = Router();
  * /services:
  *   get:
  *     tags: [2. Module Information]
- *     summary: API Services Private
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -29,7 +28,7 @@ export const serviceRouter = Router();
  *                     properties:
  *                       service_code: { type: string, example: PULSA }
  *                       service_name: { type: string, example: Pulsa }
- *                       service_icon: { type: string, example: https://nutech-integrasi.app/dummy.jpg }
+ *                       service_icon: { type: string, example: https://naufalpujimahdy.id/dummy.jpg }
  *                       service_tariff: { type: integer, example: 40000 }
  *       401:
  *         description: Unauthorized

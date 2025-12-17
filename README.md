@@ -8,24 +8,24 @@ Author: **Naufal Puji Mahdy**
 
 ## Deskripsi Project
 
-* Authentication & Authorization menggunakan **JWT**
-* Manajemen saldo
-* Transaction history
-* Validasi
-* Pemisahan layer Controller – Service – Repository
-* Dokumentasi API menggunakan Swagger
+- Authentication & Authorization menggunakan **JWT**
+- Manajemen saldo
+- Transaction history
+- Validasi
+- Pemisahan layer Controller – Service – Repository
+- Dokumentasi API menggunakan Swagger
 
 ---
 
 ## Tech Stack
 
-* **Node.js**
-* **Express.js**
-* **TypeScript**
-* **PostgreSQL**
-* **JWT**
-* **Swagger / OpenAPI 3.0**
-* **Docker & Docker Compose**
+- **Node.js**
+- **Express.js**
+- **TypeScript**
+- **PostgreSQL**
+- **JWT**
+- **Swagger / OpenAPI 3.0**
+- **Docker & Docker Compose**
 
 ---
 
@@ -33,21 +33,21 @@ Author: **Naufal Puji Mahdy**
 
 ```bash
 .
-├── dist/                   
+├── dist/
 ├── node_modules/
 ├── src/
-│   ├── controllers/        
-│   ├── db/                 
-│   ├── docs/               
-│   ├── middlewares/        
-│   ├── repositories/       
-│   ├── routes/             
-│   ├── services/           
-│   ├── types/              
-│   ├── utils/              
-│   ├── app.ts              
-│   └── server.ts           
-├── uploads/                
+│   ├── controllers/
+│   ├── db/
+│   ├── docs/
+│   ├── middlewares/
+│   ├── repositories/
+│   ├── routes/
+│   ├── services/
+│   ├── types/
+│   ├── utils/
+│   ├── app.ts
+│   └── server.ts
+├── uploads/
 ├── .dockerignore
 ├── .env
 ├── .env.example
@@ -62,32 +62,20 @@ Author: **Naufal Puji Mahdy**
 
 ---
 
-## Arsitektur Aplikasi
-
-Project ini menggunakan pola **Layered Architecture**:
-
-```
-Route
-  ↓
-Controller
-  ↓
-Service
-  ↓
-Repository
-  ↓
-Database
-```
-
----
-
 ## Database Design (DDL)
 
 Desain database menggunakan **PostgreSQL** dengan tabel utama:
 
-* **users** — data user
-* **wallets** — saldo user
-* **services** — layanan yang tersedia
-* **transactions** — riwayat transaksi
-* **banners** — banner informasi
+- **users** — data user
+- **wallets** — saldo user
+- **services** — layanan yang tersedia
+- **transactions** — riwayat transaksi
+- **banners** — banner informasi
 
 ---
+
+## Database ERD
+
+Berikut adalah **Entity Relationship Diagram (ERD)** yang menggambarkan relasi antar tabel pada database:
+
+![Database ERD](src/docs/erd-database.png)

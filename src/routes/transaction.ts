@@ -12,7 +12,6 @@ export const transactionRouter = Router();
  * /balance:
  *   get:
  *     tags: [3. Module Transaction]
- *     summary: API Balance Private
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -47,7 +46,6 @@ transactionRouter.get("/balance", authJwt, balanceUser);
  * /topup:
  *   post:
  *     tags: [3. Module Transaction]
- *     summary: API Topup Private
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -103,7 +101,6 @@ transactionRouter.post("/topup", authJwt, topup);
  * /transaction:
  *   post:
  *     tags: [3. Module Transaction]
- *     summary: API Transaction Private
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -164,7 +161,6 @@ transactionRouter.post("/transaction", authJwt, transaction);
  * /transaction/history:
  *   get:
  *     tags: [3. Module Transaction]
- *     summary: API History Private
  *     security:
  *       - bearerAuth: []
  *     parameters:

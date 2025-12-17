@@ -16,7 +16,6 @@ export const membershipRouter = Router();
  * /registration:
  *   post:
  *     tags: [1. Module Membership]
- *     summary: API Registration Public
  *     description: Digunakan untuk melakukan registrasi User agar bisa Login kedalam aplikasi
  *     requestBody:
  *       required: true
@@ -28,13 +27,13 @@ export const membershipRouter = Router();
  *             properties:
  *               email:
  *                 type: string
- *                 example: user@nutech-integrasi.com
+ *                 example: naufal@mail.com
  *               first_name:
  *                 type: string
- *                 example: User
+ *                 example: Naufal
  *               last_name:
  *                 type: string
- *                 example: Nutech
+ *                 example: Puji Mahdy
  *               password:
  *                 type: string
  *                 minLength: 8
@@ -80,7 +79,6 @@ membershipRouter.post("/registration", registration);
  * /login:
  *   post:
  *     tags: [1. Module Membership]
- *     summary: API Login Public
  *     requestBody:
  *       required: true
  *       content:
@@ -89,7 +87,7 @@ membershipRouter.post("/registration", registration);
  *             type: object
  *             required: [email, password]
  *             properties:
- *               email: { type: string, example: user@nutech-integrasi.com }
+ *               email: { type: string, example: naufal@mail.com }
  *               password: { type: string, minLength: 8, example: abcdef1234 }
  *     responses:
  *       200:
@@ -135,7 +133,6 @@ membershipRouter.post("/login", login);
  * /profile:
  *   get:
  *     tags: [1. Module Membership]
- *     summary: API Profile Private
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -157,13 +154,13 @@ membershipRouter.post("/login", login);
  *                   properties:
  *                     email:
  *                       type: string
- *                       example: user@nutech-integrasi.com
+ *                       example: naufal@mail.com
  *                     first_name:
  *                       type: string
- *                       example: User
+ *                       example: Naufal
  *                     last_name:
  *                       type: string
- *                       example: Nutech
+ *                       example: Puji Mahdy
  *                     profile_image:
  *                       type: string
  *                       nullable: true
@@ -192,7 +189,6 @@ membershipRouter.get("/profile", authJwt, profile);
  * /profile/update:
  *   put:
  *     tags: [1. Module Membership]
- *     summary: API Update Profile Private
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -205,10 +201,10 @@ membershipRouter.get("/profile", authJwt, profile);
  *             properties:
  *               first_name:
  *                 type: string
- *                 example: User Edited
+ *                 example: Naufal Edited
  *               last_name:
  *                 type: string
- *                 example: Nutech Edited
+ *                 example: Puji Mahdy Edited
  *     responses:
  *       200:
  *         description: Request Successfully
@@ -222,9 +218,9 @@ membershipRouter.get("/profile", authJwt, profile);
  *                 data:
  *                   type: object
  *                   properties:
- *                     email: { type: string, example: user@nutech-integrasi.com }
- *                     first_name: { type: string, example: User Edited }
- *                     last_name: { type: string, example: Nutech Edited }
+ *                     email: { type: string, example: naufal@mail.com }
+ *                     first_name: { type: string, example: Naufal Edited }
+ *                     last_name: { type: string, example: Puji Mahdy Edited }
  *                     profile_image:
  *                       type: string
  *                       nullable: true
@@ -247,7 +243,6 @@ membershipRouter.put("/profile/update", authJwt, updateProfile);
  * /profile/image:
  *   put:
  *     tags: [1. Module Membership]
- *     summary: API Upload Profile Image Private
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -274,9 +269,9 @@ membershipRouter.put("/profile/update", authJwt, updateProfile);
  *                 data:
  *                   type: object
  *                   properties:
- *                     email: { type: string, example: user@nutech-integrasi.com }
- *                     first_name: { type: string, example: User Edited }
- *                     last_name: { type: string, example: Nutech Edited }
+ *                     email: { type: string, example: naufal@mail.com }
+ *                     first_name: { type: string, example: Naufal Edited }
+ *                     last_name: { type: string, example: Puji Mahdy Edited }
  *                     profile_image: { type: string, example: https://yoururlapi.com/profile-updated.jpeg }
  *       400:
  *         description: Bad Request

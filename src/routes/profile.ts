@@ -9,8 +9,8 @@ profileRouter.get("/profile", authJwt, (req, res) => {
     message: "Sukses",
     data: {
       email: req.userEmail,
-      first_name: "User",
-      last_name: "Nutech",
+      first_name: "Naufal",
+      last_name: "Puji Mahdy",
       profile_image: "https://yourulapi.com/profile.jpeg",
     },
   });
