@@ -10,6 +10,9 @@ services:
       - .env
     depends_on:
       - postgres
+    volumes:
+      - uploads:/app/uploads
+    restart: unless-stopped
 
   postgres:
     image: postgres:15
@@ -22,6 +25,8 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    restart: unless-stopped
 
 volumes:
   pgdata:
+  uploads:
